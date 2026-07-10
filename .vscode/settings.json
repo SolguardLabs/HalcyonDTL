@@ -1,0 +1,7 @@
+{
+  "go.useLanguageServer": true,
+  "go.toolsManagement.autoUpdate": false,
+  "editor.formatOnSave": true,
+  "files.eol": "\n"
+}
+
