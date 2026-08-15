@@ -28,4 +28,3 @@ test("liquidation pushes residual debt into the pool and frees route utilization
   assert.equal(bob.status, "restricted");
   assert.equal(bob.positions.length, 0);
 });
-

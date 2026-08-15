@@ -17,4 +17,3 @@ test("all public scenarios validate invariants", () => {
     assert.equal(validateScenario(scenario), `ok ${scenario}`);
   }
 });
-

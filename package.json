@@ -1,20 +1,26 @@
 {
   "name": "halcyondtl",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Go DTL dynamic funding engine with TypeScript integration tests.",
+  "description": "Motor DTL de enrutamiento, funding dinámico y control de solvencia.",
+  "exports": "./sdk/index.js",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node scripts/build.mjs && node --test --experimental-strip-types \"tests/node/*.test.ts\"",
-    "ci": "bash scripts/ci.sh",
+    "format": "prettier --write . && node scripts/gofmt.mjs --write",
+    "format:check": "prettier --check . && node scripts/gofmt.mjs --check",
+    "test:go": "node scripts/go-command.mjs test ./src",
+    "test:node": "node --test --experimental-strip-types \"tests/node/*.test.ts\"",
+    "test": "npm run build && npm run test:go && npm run test:node",
+    "audit:runtime": "npm audit --omit=dev --audit-level=high",
+    "verify:release": "node scripts/verify-release.mjs",
+    "ci": "npm run format:check && npm run test && npm run loc && npm run audit:runtime && npm run verify:release",
     "loc": "node scripts/check-loc.mjs"
   },
   "engines": {
     "node": ">=24"
   },
   "devDependencies": {
-    "prettier": "^3.8.3"
+    "prettier": "3.8.3"
   }
 }
-

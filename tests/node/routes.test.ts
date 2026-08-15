@@ -22,6 +22,9 @@ test("route drift report highlights exposure whose account cursor points elsewhe
   const report = runScenario("routes");
   const alice = byId(report.accounts, "acct-alice");
   assert.equal(alice.active_route, "route-boreal-us");
-  assert.ok(report.route_drift.some((drift) => drift.account_id === "acct-alice" && drift.route_id === "route-atlas-eu"));
+  assert.ok(
+    report.route_drift.some(
+      (drift) => drift.account_id === "acct-alice" && drift.route_id === "route-atlas-eu",
+    ),
+  );
 });
-

@@ -28,4 +28,3 @@ test("normal close records user funding debit and protocol fee", () => {
   assert.equal(bucket(report.pool.fees_collected, "hUSD"), 608);
   assert.equal(report.pool.uncollected_funding.length, 0);
 });
-
