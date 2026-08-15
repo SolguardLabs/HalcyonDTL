@@ -1,7 +1,7 @@
 package main
 
 type HalcyonReport struct {
-	Lab          string             `json:"lab"`
+	Protocol     string             `json:"protocol"`
 	Scenario     string             `json:"scenario"`
 	NetworkID    string             `json:"network_id"`
 	Clock        EpochID            `json:"clock"`
@@ -165,7 +165,7 @@ type RiskReport struct {
 func (engine *Engine) Report(scenario string) HalcyonReport {
 	risk := engine.ComputeRisk()
 	return HalcyonReport{
-		Lab:          "HalcyonDTL",
+		Protocol:     "HalcyonDTL",
 		Scenario:     scenario,
 		NetworkID:    engine.NetworkID,
 		Clock:        engine.Clock,

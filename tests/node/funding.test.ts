@@ -29,4 +29,3 @@ test("funding scenario leaves account snapshot synced to active route", () => {
   assert.equal(alice.funding_snapshot, route.funding_accumulator);
   assert.equal(report.risk.open_positions, 1);
 });
-

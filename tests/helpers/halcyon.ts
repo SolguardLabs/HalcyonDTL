@@ -90,7 +90,7 @@ export type PositionReport = {
 };
 
 export type HalcyonReport = {
-  lab: string;
+  protocol: string;
   scenario: string;
   network_id: string;
   clock: number;
@@ -196,7 +196,7 @@ export function assertDigest(value: unknown): void {
 }
 
 export function assertCommon(report: HalcyonReport, scenario: string): void {
-  assert.equal(report.lab, "HalcyonDTL");
+  assert.equal(report.protocol, "HalcyonDTL");
   assert.equal(report.scenario, scenario);
   assert.equal(report.network_id, "halcyon-local-funding");
   assertDigest(report.state_digest);
@@ -213,4 +213,3 @@ export function assertCommon(report: HalcyonReport, scenario: string): void {
   assert.equal(report.invariants.active_snapshots_link_open_routes, true);
   assert.equal(report.invariants.closed_positions_not_in_accounts, true);
 }
-

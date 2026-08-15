@@ -2,5 +2,5 @@ out/
 node_modules/
 coverage/
 *.log
-vulnerability.md
+src/private_proof_test.go
 

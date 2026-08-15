@@ -28,4 +28,3 @@ if (build.status !== 0) {
 }
 
 console.log(output);
-
