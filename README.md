@@ -1,6 +1,6 @@
-![HalcyonDTL](assets/halcyondtl-banner.png)
-
 # HalcyonDTL
+
+![HalcyonDTL](assets/halcyondtl-banner.png)
 
 HalcyonDTL es un motor determinista de liquidez distribuida escrito en Go. Coordina rutas entre bóvedas, posiciones con margen, financiación dinámica, rotación operativa y liquidaciones, y publica un informe JSON estable para integración y observabilidad. La distribución incluye un cliente Node sin dependencias de ejecución.
 
