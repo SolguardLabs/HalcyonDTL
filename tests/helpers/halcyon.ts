@@ -91,6 +91,7 @@ export type PositionReport = {
 
 export type HalcyonReport = {
   protocol: string;
+  schema_version: string;
   scenario: string;
   network_id: string;
   clock: number;

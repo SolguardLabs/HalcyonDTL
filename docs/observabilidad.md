@@ -22,6 +22,7 @@ flowchart TB
 
 | Señal                  | Tipo     | Interpretación                |
 | ---------------------- | -------- | ----------------------------- |
+| `schema_version`       | cadena   | contrato JSON vigente (`2`)   |
 | `clock`                | contador | época aplicada                |
 | `state_digest`         | cadena   | identidad canónica del estado |
 | `max_utilization_bps`  | gauge    | mayor presión de capacidad    |

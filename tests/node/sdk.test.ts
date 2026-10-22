@@ -14,6 +14,7 @@ test("client returns an immutable validated report", () => {
   ensureBuilt();
   const report = new HalcyonClient({ binary: binaryPath() }).runScenario("routes");
   assert.equal(report.protocol, "HalcyonDTL");
+  assert.equal(report.schema_version, "2");
   assert.equal(Object.isFrozen(report), true);
   assert.equal(Object.isFrozen(report.routes), true);
 });
@@ -37,6 +38,7 @@ test("client reports missing binaries without invoking a shell", () => {
 test("report validation rejects identity and invariant mismatches", () => {
   const base = {
     protocol: "HalcyonDTL",
+    schema_version: "2",
     scenario: "funding",
     state_digest: "a".repeat(32),
     routes: [],
@@ -45,6 +47,7 @@ test("report validation rejects identity and invariant mismatches", () => {
     invariants: { accounting: true },
   };
   assert.throws(() => validateReport({ ...base, protocol: "other" }, "funding"), HalcyonClientError);
+  assert.throws(() => validateReport({ ...base, schema_version: "1" }, "funding"), HalcyonClientError);
   assert.throws(
     () => validateReport({ ...base, invariants: { accounting: false } }, "funding"),
     HalcyonClientError,

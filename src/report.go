@@ -1,25 +1,26 @@
 package main
 
 type HalcyonReport struct {
-	Protocol     string             `json:"protocol"`
-	Scenario     string             `json:"scenario"`
-	NetworkID    string             `json:"network_id"`
-	Clock        EpochID            `json:"clock"`
-	StateDigest  string             `json:"state_digest"`
-	Assets       []Asset            `json:"assets"`
-	Operators    []OperatorReport   `json:"operators"`
-	Vaults       []VaultReport      `json:"vaults"`
-	Accounts     []AccountReport    `json:"accounts"`
-	Routes       []RouteReport      `json:"routes"`
-	Positions    []PositionReport   `json:"positions"`
-	Funding      FundingReport      `json:"funding"`
-	Pool         PoolReport         `json:"pool"`
-	Liquidations []LiquidationCheck `json:"liquidations"`
-	Totals       TotalsReport       `json:"totals"`
-	Risk         RiskReport         `json:"risk"`
-	Invariants   map[string]bool    `json:"invariants"`
-	Events       []Event            `json:"events"`
-	Notes        []string           `json:"notes"`
+	Protocol      string             `json:"protocol"`
+	SchemaVersion string             `json:"schema_version"`
+	Scenario      string             `json:"scenario"`
+	NetworkID     string             `json:"network_id"`
+	Clock         EpochID            `json:"clock"`
+	StateDigest   string             `json:"state_digest"`
+	Assets        []Asset            `json:"assets"`
+	Operators     []OperatorReport   `json:"operators"`
+	Vaults        []VaultReport      `json:"vaults"`
+	Accounts      []AccountReport    `json:"accounts"`
+	Routes        []RouteReport      `json:"routes"`
+	Positions     []PositionReport   `json:"positions"`
+	Funding       FundingReport      `json:"funding"`
+	Pool          PoolReport         `json:"pool"`
+	Liquidations  []LiquidationCheck `json:"liquidations"`
+	Totals        TotalsReport       `json:"totals"`
+	Risk          RiskReport         `json:"risk"`
+	Invariants    map[string]bool    `json:"invariants"`
+	Events        []Event            `json:"events"`
+	Notes         []string           `json:"notes"`
 }
 
 type OperatorReport struct {
@@ -148,25 +149,26 @@ type RiskReport struct {
 func (engine *Engine) Report(scenario string) HalcyonReport {
 	risk := engine.ComputeRisk()
 	return HalcyonReport{
-		Protocol:     "HalcyonDTL",
-		Scenario:     scenario,
-		NetworkID:    engine.NetworkID,
-		Clock:        engine.Clock,
-		StateDigest:  engine.StateDigest(),
-		Assets:       engine.Assets.List(),
-		Operators:    engine.OperatorReports(),
-		Vaults:       engine.VaultReports(),
-		Accounts:     engine.AccountReports(),
-		Routes:       engine.RouteReports(),
-		Positions:    engine.PositionReports(),
-		Funding:      engine.Funding.Report(),
-		Pool:         engine.Pool.Report(),
-		Liquidations: engine.LiquidatablePositions(),
-		Totals:       engine.Totals(),
-		Risk:         risk,
-		Invariants:   engine.Invariants(),
-		Events:       engine.Journal.Events(),
-		Notes:        cloneStrings(engine.Notes),
+		Protocol:      "HalcyonDTL",
+		SchemaVersion: "2",
+		Scenario:      scenario,
+		NetworkID:     engine.NetworkID,
+		Clock:         engine.Clock,
+		StateDigest:   engine.StateDigest(),
+		Assets:        engine.Assets.List(),
+		Operators:     engine.OperatorReports(),
+		Vaults:        engine.VaultReports(),
+		Accounts:      engine.AccountReports(),
+		Routes:        engine.RouteReports(),
+		Positions:     engine.PositionReports(),
+		Funding:       engine.Funding.Report(),
+		Pool:          engine.Pool.Report(),
+		Liquidations:  engine.LiquidatablePositions(),
+		Totals:        engine.Totals(),
+		Risk:          risk,
+		Invariants:    engine.Invariants(),
+		Events:        engine.Journal.Events(),
+		Notes:         cloneStrings(engine.Notes),
 	}
 }
 
