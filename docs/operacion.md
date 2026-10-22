@@ -71,4 +71,4 @@ stateDiagram-v2
 
 ## Publicación
 
-Los cambios entran mediante una solicitud revisada. Tras integrar en `main`, se crea o actualiza `production` al mismo commit, se espera su matriz, se crea la etiqueta anotada `v1.0.0` y se publica la versión. No se reutiliza una etiqueta para otro commit.
+Los cambios entran mediante una solicitud revisada. Tras integrar en `main`, se crea o actualiza `production` al mismo commit, se espera su matriz, se crea la etiqueta anotada `v2.0.0` y se publica la versión. No se reutiliza una etiqueta para otro commit.

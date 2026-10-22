@@ -26,5 +26,5 @@ test("normal close records user funding debit and protocol fee", () => {
   assert.ok(signedBucket(alice.realized_funding, "hUSD") < 0);
   assert.equal(bucket(alice.fees_paid, "hUSD"), 608);
   assert.equal(bucket(report.pool.fees_collected, "hUSD"), 608);
-  assert.equal(report.pool.uncollected_funding.length, 0);
+  assert.equal(report.pool.socialized_debt.length, 0);
 });

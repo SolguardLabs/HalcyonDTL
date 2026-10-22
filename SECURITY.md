@@ -4,7 +4,8 @@
 
 | Serie      | Estado            | Canal        |
 | ---------- | ----------------- | ------------ |
-| 1.0.x      | Mantenida         | `production` |
+| 2.0.x      | Mantenida         | `production` |
+| 1.0.x      | Histórica         | —            |
 | anteriores | Sin mantenimiento | —            |
 
 ## Comunicación responsable

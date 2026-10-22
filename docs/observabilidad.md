@@ -22,13 +22,13 @@ flowchart TB
 
 | Señal                  | Tipo     | Interpretación                |
 | ---------------------- | -------- | ----------------------------- |
+| `schema_version`       | cadena   | contrato JSON vigente (`2`)   |
 | `clock`                | contador | época aplicada                |
 | `state_digest`         | cadena   | identidad canónica del estado |
 | `max_utilization_bps`  | gauge    | mayor presión de capacidad    |
 | `min_margin_ratio_bps` | gauge    | menor colchón de cuenta       |
 | `insurance_balance`    | gauge    | cobertura disponible          |
 | `socialized_debt`      | gauge    | pérdida no absorbida          |
-| `uncollected_funding`  | contador | diferencia contable acumulada |
 | `event_count`          | contador | completitud del diario        |
 
 ```mermaid

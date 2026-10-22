@@ -1,26 +1,26 @@
 package main
 
 type HalcyonReport struct {
-	Protocol     string             `json:"protocol"`
-	Scenario     string             `json:"scenario"`
-	NetworkID    string             `json:"network_id"`
-	Clock        EpochID            `json:"clock"`
-	StateDigest  string             `json:"state_digest"`
-	Assets       []Asset            `json:"assets"`
-	Operators    []OperatorReport   `json:"operators"`
-	Vaults       []VaultReport      `json:"vaults"`
-	Accounts     []AccountReport    `json:"accounts"`
-	Routes       []RouteReport      `json:"routes"`
-	Positions    []PositionReport   `json:"positions"`
-	Funding      FundingReport      `json:"funding"`
-	Pool         PoolReport         `json:"pool"`
-	RouteDrift   []RouteDrift       `json:"route_drift"`
-	Liquidations []LiquidationCheck `json:"liquidations"`
-	Totals       TotalsReport       `json:"totals"`
-	Risk         RiskReport         `json:"risk"`
-	Invariants   map[string]bool    `json:"invariants"`
-	Events       []Event            `json:"events"`
-	Notes        []string           `json:"notes"`
+	Protocol      string             `json:"protocol"`
+	SchemaVersion string             `json:"schema_version"`
+	Scenario      string             `json:"scenario"`
+	NetworkID     string             `json:"network_id"`
+	Clock         EpochID            `json:"clock"`
+	StateDigest   string             `json:"state_digest"`
+	Assets        []Asset            `json:"assets"`
+	Operators     []OperatorReport   `json:"operators"`
+	Vaults        []VaultReport      `json:"vaults"`
+	Accounts      []AccountReport    `json:"accounts"`
+	Routes        []RouteReport      `json:"routes"`
+	Positions     []PositionReport   `json:"positions"`
+	Funding       FundingReport      `json:"funding"`
+	Pool          PoolReport         `json:"pool"`
+	Liquidations  []LiquidationCheck `json:"liquidations"`
+	Totals        TotalsReport       `json:"totals"`
+	Risk          RiskReport         `json:"risk"`
+	Invariants    map[string]bool    `json:"invariants"`
+	Events        []Event            `json:"events"`
+	Notes         []string           `json:"notes"`
 }
 
 type OperatorReport struct {
@@ -118,34 +118,19 @@ type FundingReport struct {
 }
 
 type PoolReport struct {
-	FeesCollected      []AmountBucket `json:"fees_collected"`
-	InsuranceBalance   []AmountBucket `json:"insurance_balance"`
-	SocializedDebt     []AmountBucket `json:"socialized_debt"`
-	UncollectedFunding []AmountBucket `json:"uncollected_funding"`
-}
-
-type RouteDrift struct {
-	AccountID        string  `json:"account_id"`
-	RouteID          string  `json:"route_id"`
-	ActiveRoute      string  `json:"active_route"`
-	Notional         Amount  `json:"notional"`
-	AccountSnapshot  int64   `json:"account_snapshot"`
-	RouteAccumulator int64   `json:"route_accumulator"`
-	AccumulatorDelta int64   `json:"accumulator_delta"`
-	SnapshotRoute    string  `json:"snapshot_route"`
-	SnapshotEpoch    EpochID `json:"snapshot_epoch"`
-	UsesActiveCursor bool    `json:"uses_active_cursor"`
+	FeesCollected    []AmountBucket `json:"fees_collected"`
+	InsuranceBalance []AmountBucket `json:"insurance_balance"`
+	SocializedDebt   []AmountBucket `json:"socialized_debt"`
 }
 
 type TotalsReport struct {
-	Collateral         []AmountBucket `json:"collateral"`
-	ReservedMargin     []AmountBucket `json:"reserved_margin"`
-	VaultReserves      []AmountBucket `json:"vault_reserves"`
-	RouteLiquidity     []AmountBucket `json:"route_liquidity"`
-	RouteUtilized      []AmountBucket `json:"route_utilized"`
-	FeesCollected      []AmountBucket `json:"fees_collected"`
-	SocializedDebt     []AmountBucket `json:"socialized_debt"`
-	UncollectedFunding []AmountBucket `json:"uncollected_funding"`
+	Collateral     []AmountBucket `json:"collateral"`
+	ReservedMargin []AmountBucket `json:"reserved_margin"`
+	VaultReserves  []AmountBucket `json:"vault_reserves"`
+	RouteLiquidity []AmountBucket `json:"route_liquidity"`
+	RouteUtilized  []AmountBucket `json:"route_utilized"`
+	FeesCollected  []AmountBucket `json:"fees_collected"`
+	SocializedDebt []AmountBucket `json:"socialized_debt"`
 }
 
 type RiskReport struct {
@@ -157,7 +142,6 @@ type RiskReport struct {
 	ProtocolFeesCollected Amount `json:"protocol_fees_collected"`
 	InsuranceBalance      Amount `json:"insurance_balance"`
 	SocializedDebt        Amount `json:"socialized_debt"`
-	UncollectedFunding    Amount `json:"uncollected_funding"`
 	FundingRecords        int    `json:"funding_records"`
 	EventCount            int    `json:"event_count"`
 }
@@ -165,26 +149,26 @@ type RiskReport struct {
 func (engine *Engine) Report(scenario string) HalcyonReport {
 	risk := engine.ComputeRisk()
 	return HalcyonReport{
-		Protocol:     "HalcyonDTL",
-		Scenario:     scenario,
-		NetworkID:    engine.NetworkID,
-		Clock:        engine.Clock,
-		StateDigest:  engine.StateDigest(),
-		Assets:       engine.Assets.List(),
-		Operators:    engine.OperatorReports(),
-		Vaults:       engine.VaultReports(),
-		Accounts:     engine.AccountReports(),
-		Routes:       engine.RouteReports(),
-		Positions:    engine.PositionReports(),
-		Funding:      engine.Funding.Report(),
-		Pool:         engine.Pool.Report(),
-		RouteDrift:   engine.RouteDriftReports(),
-		Liquidations: engine.LiquidatablePositions(),
-		Totals:       engine.Totals(),
-		Risk:         risk,
-		Invariants:   engine.Invariants(),
-		Events:       engine.Journal.Events(),
-		Notes:        cloneStrings(engine.Notes),
+		Protocol:      "HalcyonDTL",
+		SchemaVersion: "2",
+		Scenario:      scenario,
+		NetworkID:     engine.NetworkID,
+		Clock:         engine.Clock,
+		StateDigest:   engine.StateDigest(),
+		Assets:        engine.Assets.List(),
+		Operators:     engine.OperatorReports(),
+		Vaults:        engine.VaultReports(),
+		Accounts:      engine.AccountReports(),
+		Routes:        engine.RouteReports(),
+		Positions:     engine.PositionReports(),
+		Funding:       engine.Funding.Report(),
+		Pool:          engine.Pool.Report(),
+		Liquidations:  engine.LiquidatablePositions(),
+		Totals:        engine.Totals(),
+		Risk:          risk,
+		Invariants:    engine.Invariants(),
+		Events:        engine.Journal.Events(),
+		Notes:         cloneStrings(engine.Notes),
 	}
 }
 
@@ -230,14 +214,6 @@ func (engine *Engine) PositionReports() []PositionReport {
 	return out
 }
 
-func (engine *Engine) RouteDriftReports() []RouteDrift {
-	out := make([]RouteDrift, 0)
-	for _, accountID := range sortedAccountIDs(engine.Accounts) {
-		out = append(out, engine.AccountRouteDrift(accountID)...)
-	}
-	return out
-}
-
 func (engine *Engine) Totals() TotalsReport {
 	collateral := make(map[string]Amount)
 	reserved := make(map[string]Amount)
@@ -260,13 +236,12 @@ func (engine *Engine) Totals() TotalsReport {
 		routeUtilized[route.Asset] += route.Utilized
 	}
 	return TotalsReport{
-		Collateral:         sortedAmountBuckets(collateral),
-		ReservedMargin:     sortedAmountBuckets(reserved),
-		VaultReserves:      sortedAmountBuckets(vaults),
-		RouteLiquidity:     sortedAmountBuckets(routeLiquidity),
-		RouteUtilized:      sortedAmountBuckets(routeUtilized),
-		FeesCollected:      sortedAmountBuckets(engine.Pool.FeesCollected),
-		SocializedDebt:     sortedAmountBuckets(engine.Pool.SocializedDebt),
-		UncollectedFunding: sortedAmountBuckets(engine.Pool.UncollectedFunding),
+		Collateral:     sortedAmountBuckets(collateral),
+		ReservedMargin: sortedAmountBuckets(reserved),
+		VaultReserves:  sortedAmountBuckets(vaults),
+		RouteLiquidity: sortedAmountBuckets(routeLiquidity),
+		RouteUtilized:  sortedAmountBuckets(routeUtilized),
+		FeesCollected:  sortedAmountBuckets(engine.Pool.FeesCollected),
+		SocializedDebt: sortedAmountBuckets(engine.Pool.SocializedDebt),
 	}
 }

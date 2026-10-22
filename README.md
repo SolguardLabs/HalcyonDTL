@@ -149,7 +149,7 @@ El cliente rechaza nombres no canónicos, no invoca una shell, limita la salida 
 
 ## Estado de versión
 
-La rama `production` y la etiqueta anotada `v1.0.0` representan el mismo commit aprobado. La automatización comprueba Linux y Windows, y valida nuevamente la integridad al publicar la versión.
+La rama `production` y la etiqueta anotada `v2.0.0` representan el mismo commit aprobado. La automatización comprueba Linux y Windows, y valida nuevamente la integridad al publicar la versión. Consulte [CHANGELOG.md](./CHANGELOG.md) antes de actualizar consumidores del reporte JSON.
 
 ## Licencia
 

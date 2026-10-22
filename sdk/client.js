@@ -100,6 +100,9 @@ export function validateReport(report, scenario) {
   if (report.protocol !== "HalcyonDTL" || report.scenario !== scenario) {
     throw new HalcyonClientError("engine report identity mismatch");
   }
+  if (report.schema_version !== "2") {
+    throw new HalcyonClientError("engine report schema version is unsupported");
+  }
   if (!/^[0-9a-f]{32}$/.test(report.state_digest ?? "")) {
     throw new HalcyonClientError("engine report digest is invalid");
   }

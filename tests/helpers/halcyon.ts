@@ -91,6 +91,7 @@ export type PositionReport = {
 
 export type HalcyonReport = {
   protocol: string;
+  schema_version: string;
   scenario: string;
   network_id: string;
   clock: number;
@@ -111,9 +112,7 @@ export type HalcyonReport = {
     fees_collected: AmountBucket[];
     insurance_balance: AmountBucket[];
     socialized_debt: AmountBucket[];
-    uncollected_funding: AmountBucket[];
   };
-  route_drift: Array<Record<string, any>>;
   totals: Record<string, AmountBucket[]>;
   risk: Record<string, number>;
   invariants: Record<string, boolean>;

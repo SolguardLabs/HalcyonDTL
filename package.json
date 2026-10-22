@@ -1,6 +1,6 @@
 {
   "name": "halcyondtl",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "description": "Motor DTL de enrutamiento, funding dinámico y control de solvencia.",

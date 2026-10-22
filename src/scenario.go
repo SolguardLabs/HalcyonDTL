@@ -186,6 +186,6 @@ func ScenarioRotation() (*Engine, error) {
 		return nil, err
 	}
 	engine.AdvanceEpoch("route rotated before atlas funding accrues")
-	engine.Note("rotation scenario exposes route/account accumulator drift without closing the old exposure")
+	engine.Note("rotation scenario records an operator route change during an active funding cycle")
 	return engine, nil
 }
