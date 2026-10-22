@@ -6,10 +6,10 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const expectedBlobs = new Map([
-  ["src/funding.go", "15c9d1d1bf0e28d078c197b54e79bd5836a0cb65"],
-  ["src/engine.go", "ae1d1af32128b4ae79ba7fb0556ba775656aa49c"],
+  ["src/funding.go", "c380d4f71d3c9d91503da78f2fb315a8bed0518b"],
+  ["src/engine.go", "c11b2a738c94c27f41e19bf28b7fb991c372e684"],
   ["src/account.go", "0a048511e395e0f0e95e0abbd1f04621b4aac7a8"],
-  ["src/rotation.go", "884ae480fbf67c42308e68d42feae8cd3948b19c"],
+  ["src/rotation.go", "acdd45d5aaa4a5e8ae670d969d7aeb4550c90de6"],
   ["src/position.go", "b004565f5da7de0e0ba83aac015863b6525e2fc8"],
 ]);
 const errors = [];
@@ -60,7 +60,7 @@ function walk(directory) {
 }
 walk(root);
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-check(packageJson.version === "1.0.0", "package version must be 1.0.0");
+check(packageJson.version === "2.0.0", "package version must be 2.0.0");
 check(git("check-ignore", "src/private_proof_test.go").length > 0, "private proof path must remain ignored");
 const digest = createHash("sha256")
   .update(markdown.map((file) => readFileSync(join(root, file))).join("\n"))

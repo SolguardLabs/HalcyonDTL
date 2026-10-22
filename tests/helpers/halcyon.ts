@@ -111,9 +111,7 @@ export type HalcyonReport = {
     fees_collected: AmountBucket[];
     insurance_balance: AmountBucket[];
     socialized_debt: AmountBucket[];
-    uncollected_funding: AmountBucket[];
   };
-  route_drift: Array<Record<string, any>>;
   totals: Record<string, AmountBucket[]>;
   risk: Record<string, number>;
   invariants: Record<string, boolean>;

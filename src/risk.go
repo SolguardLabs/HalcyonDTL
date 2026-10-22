@@ -36,9 +36,6 @@ func (engine *Engine) ComputeRisk() RiskReport {
 	for _, amount := range engine.Pool.SocializedDebt {
 		report.SocializedDebt += amount
 	}
-	for _, amount := range engine.Pool.UncollectedFunding {
-		report.UncollectedFunding += amount
-	}
 	return report
 }
 

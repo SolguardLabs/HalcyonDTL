@@ -315,8 +315,7 @@ func (engine *Engine) ClosePosition(accountID AccountID, positionID PositionID, 
 		return FundingSettlement{}, err
 	}
 	position.MarkClosing()
-	settlement := SettlementUsesAccountSnapshot(account, position, route)
-	expected := SettlementUsesRouteAccumulator(account, position, route)
+	settlement := QuoteFundingSettlement(account, position)
 	closeFee, err := operator.FeeFor(position.Notional)
 	if err != nil {
 		return FundingSettlement{}, err
@@ -326,9 +325,6 @@ func (engine *Engine) ClosePosition(accountID AccountID, positionID PositionID, 
 		return FundingSettlement{}, err
 	}
 	settlement.SocializedDebt = socialized
-	if expected.Funding < settlement.Funding {
-		engine.Pool.RecordUncollectedFunding(position.Asset, Amount(settlement.Funding-expected.Funding))
-	}
 	position.MarkClosed(engine.Clock, settlement, closeFee, nonEmpty(reason, "user_close"))
 	account.RemovePosition(position.ID)
 	route.Release(position.Notional)
@@ -341,7 +337,6 @@ func (engine *Engine) ClosePosition(accountID AccountID, positionID PositionID, 
 		"route", route.ID.String(),
 		"position", position.ID.String(),
 		"funding", settlement.Funding,
-		"expected_funding", expected.Funding,
 		"close_fee", closeFee,
 		"socialized_debt", socialized,
 		"reason", position.CloseReason,

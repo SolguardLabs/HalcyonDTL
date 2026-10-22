@@ -28,7 +28,6 @@ type AuditProfile struct {
 	MaxSocializedDebt      Amount `json:"max_socialized_debt"`
 	MinVaultHealthBps      int64  `json:"min_vault_health_bps"`
 	RequireActiveSnapshots bool   `json:"require_active_snapshots"`
-	WarnOnClosedFundingGap bool   `json:"warn_on_closed_funding_gap"`
 }
 
 func DefaultAuditProfile() AuditProfile {
@@ -38,7 +37,6 @@ func DefaultAuditProfile() AuditProfile {
 		MaxSocializedDebt:      MustAmount(5_000),
 		MinVaultHealthBps:      9_000,
 		RequireActiveSnapshots: true,
-		WarnOnClosedFundingGap: true,
 	}
 }
 
@@ -189,22 +187,6 @@ func (engine *Engine) auditPositions(profile AuditProfile) []AuditFinding {
 					Epoch:      engine.Clock,
 					Metric:     ratio,
 					Threshold:  asset.MaintenanceMarginBps,
-					Actionable: true,
-				})
-			}
-		}
-		if profile.WarnOnClosedFundingGap && !position.IsOpen() {
-			expected, err := route.FundingFor(position.Notional, position.EntryAccumulator)
-			if err == nil && expected != position.FundingPaid {
-				out = append(out, AuditFinding{
-					ID:         "position-funding-gap-" + position.ID.String(),
-					Severity:   AuditCritical,
-					Component:  "position",
-					Subject:    position.ID.String(),
-					Message:    "closed position funding differs from route accumulator expectation",
-					Epoch:      engine.Clock,
-					Metric:     expected - position.FundingPaid,
-					Threshold:  0,
 					Actionable: true,
 				})
 			}

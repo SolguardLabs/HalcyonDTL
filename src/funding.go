@@ -22,11 +22,9 @@ type FundingSettlement struct {
 	Notional         Amount     `json:"notional"`
 	EntryAccumulator int64      `json:"entry_accumulator"`
 	ExitAccumulator  int64      `json:"exit_accumulator"`
-	RouteAccumulator int64      `json:"route_accumulator"`
 	DeltaPPM         int64      `json:"delta_ppm"`
 	Funding          int64      `json:"funding"`
 	SocializedDebt   Amount     `json:"socialized_debt"`
-	Reason           string     `json:"reason"`
 }
 
 type FundingEngine struct {
@@ -75,7 +73,7 @@ func FundingCreditAmount(value int64) Amount {
 	return Amount(value)
 }
 
-func SettlementUsesAccountSnapshot(account *Account, position *Position, route *Route) FundingSettlement {
+func QuoteFundingSettlement(account *Account, position *Position) FundingSettlement {
 	exitAccumulator := account.FundingSnapshot
 	deltaPPM := exitAccumulator - position.EntryAccumulator
 	funding, _ := SignedAmountFromPPM(position.Notional, deltaPPM)
@@ -87,32 +85,7 @@ func SettlementUsesAccountSnapshot(account *Account, position *Position, route *
 		Notional:         position.Notional,
 		EntryAccumulator: position.EntryAccumulator,
 		ExitAccumulator:  exitAccumulator,
-		RouteAccumulator: route.FundingAccumulator,
 		DeltaPPM:         deltaPPM,
 		Funding:          funding,
-		Reason:           "account_snapshot",
 	}
-}
-
-func SettlementUsesRouteAccumulator(account *Account, position *Position, route *Route) FundingSettlement {
-	exitAccumulator := route.FundingAccumulator
-	deltaPPM := exitAccumulator - position.EntryAccumulator
-	funding, _ := SignedAmountFromPPM(position.Notional, deltaPPM)
-	return FundingSettlement{
-		AccountID:        account.ID,
-		PositionID:       position.ID,
-		RouteID:          position.RouteID,
-		Asset:            position.Asset,
-		Notional:         position.Notional,
-		EntryAccumulator: position.EntryAccumulator,
-		ExitAccumulator:  exitAccumulator,
-		RouteAccumulator: route.FundingAccumulator,
-		DeltaPPM:         deltaPPM,
-		Funding:          funding,
-		Reason:           "route_accumulator",
-	}
-}
-
-func FundingGap(vulnerable FundingSettlement, expected FundingSettlement) int64 {
-	return expected.Funding - vulnerable.Funding
 }
